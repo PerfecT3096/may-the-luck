@@ -1,15 +1,21 @@
-'use client'
+import TitleBox from '@components/home/TitleBox'
+import ResultBox from '@components/home/ResultBox'
+import { getLottory } from '@utils/lottory'
 
-import { motion } from 'framer-motion'
+// export const revalidate = 10
 
-const HomePage = () => {
+const HomePage = async () => {
+  const lottory = await getLottory()
+
+  if (!lottory) {
+    return <div>NOT FOUND</div>
+  }
+
   return (
     <main>
-      <motion.div
-        className='bg-orange-600 w-52 h-52 rounded-lg'
-        drag='x'
-        dragConstraints={{ left: 100, right: 100 }}
-      />
+      <TitleBox date={lottory.date} />
+
+      <ResultBox {...lottory} />
     </main>
   )
 }
