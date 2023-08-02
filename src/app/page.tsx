@@ -1,11 +1,12 @@
 import TitleBox from '@components/home/TitleBox'
 import ResultBox from '@components/home/ResultBox'
-import { getLottoryFromFile } from '@utils/lottory'
+
+import { getLottory } from '@utils/lottory'
 
 // export const revalidate = 10
 
 const HomePage = async () => {
-  const lottory = await getLottoryFromFile('lottory')
+  const lottory = await getLottory()
 
   if (!lottory) {
     return <div>NOT FOUND</div>
