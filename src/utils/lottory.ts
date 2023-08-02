@@ -1,15 +1,15 @@
 import dayjs from 'dayjs'
 
-import { read, write } from './file'
+import { read, write, getConfig } from './file'
 
 export const randomNo = (length: number) => {
   return Math.random().toFixed(length).split('.')[1]
 }
 
-export const generate = async () => {
+export const generateToFile = async (key: string) => {
   const day = dayjs().format('YYYY/MM/DD')
 
-  const data = await read('lottory.json')
+  const data = await read(getConfig(key))
 
   const newData: ILottory = {
     firstPrize: randomNo(6),
@@ -19,13 +19,14 @@ export const generate = async () => {
     date: day,
   }
 
-  await write('lottory.json', JSON.stringify({ ...data, [day]: newData }))
+  await write(getConfig('lottory'), JSON.stringify({ ...data, [day]: newData }))
 }
 
-export const getLottory = async (
+export const getLottoryFromFile = async (
+  key: string,
   date?: string,
 ): Promise<undefined | ILottory> => {
-  const lottory = await read('lottory.json')
+  const lottory = await read(getConfig(key))
 
   if (!lottory) {
     return undefined
@@ -44,8 +45,8 @@ export const getLottory = async (
   return data
 }
 
-export const getTransactions = async () => {
-  const res = await read('transaction.json')
+export const getTransactionsFromFile = async () => {
+  const res = await read(getConfig('transaction'))
 
   return res.json()
 }
