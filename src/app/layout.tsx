@@ -1,3 +1,4 @@
+import Banner from '@components/common/Banner'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Kanit } from 'next/font/google'
@@ -17,7 +18,8 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={kanit.className}>
-        <main className='max-w-[720px] min-h-screen mx-auto p-5 bg-zinc-900'>
+        <Banner />
+        <main className='max-w-[720px] min-h-screen mx-auto p-5 pt-10 bg-zinc-900'>
           {children}
         </main>
       </body>
