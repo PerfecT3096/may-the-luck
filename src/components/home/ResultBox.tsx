@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { motion } from 'framer-motion'
 
 import MajorLottoCard from '@components/common/MajorLottoCard'
 import MinorLottoCard from '@components/common/MinorLottoCard'

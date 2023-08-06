@@ -1,5 +1,6 @@
 import TitleBox from '@components/home/TitleBox'
 import ResultBox from '@components/home/ResultBox'
+
 import { getLottory } from '@utils/lottory'
 
 // export const revalidate = 10
