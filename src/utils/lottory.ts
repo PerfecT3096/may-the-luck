@@ -9,7 +9,7 @@ export const randomNo = (length: number) => {
 export const generate = async () => {
   const day = dayjs().format('YYYY/MM/DD')
 
-  const data = await read('lottory.json')
+  const data = await getLottories()
 
   const newData: ILottory = {
     firstPrize: randomNo(6),
@@ -19,7 +19,21 @@ export const generate = async () => {
     date: day,
   }
 
-  await write('lottory.json', JSON.stringify({ ...data, [day]: newData }))
+  setLottory(data, newData)
+}
+
+export const setLottory = async (
+  prev: Partial<{ [key: string]: ILottory }>,
+  newData: ILottory,
+) => {
+  if (prev[newData.date]) {
+    return
+  }
+
+  await write(
+    'lottory.json',
+    JSON.stringify({ ...prev, [newData.date]: newData }),
+  )
 }
 
 export const getLottories = async () => {
@@ -61,6 +75,7 @@ const LottoryUtil = {
   getLottory,
   generate,
   getLottories,
+  setLottory,
 }
 
 export default LottoryUtil
