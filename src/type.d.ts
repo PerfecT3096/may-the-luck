@@ -5,3 +5,10 @@ interface ILottory {
   twoLast: string
   date: string
 }
+
+interface ITransaction {
+  id: number
+  phone: string
+  number: string
+  createdAt: string
+}
