@@ -17,8 +17,8 @@ describe('Test random lotto number', () => {
 describe('Test integration with file lottory.json', () => {
   describe('Get lottory', () => {
     beforeEach(async () => {
-      LottoryUtil.getLottories = jest.fn(async () => {
-        return {
+      LottoryUtil.getLottory = jest.fn(async (date?: string) => {
+        const temp: { [key: string]: ILottory } = {
           '2023/07/16': {
             firstPrize: '123456',
             threeFront: '222',
@@ -27,20 +27,26 @@ describe('Test integration with file lottory.json', () => {
             date: '2023/07/16',
           },
           '2023/07/31': {
-            firstPrize: '865737',
+            firstPrize: '999999',
             threeFront: '676',
             threeLast: '782',
             twoLast: '44',
             date: '2023/07/31',
           },
         }
+
+        if (!date) {
+          return temp['2023/07/31']
+        }
+
+        return temp[date] || undefined
       })
     })
 
     it('Should return the latest date of lottory', async () => {
       const lottory = await LottoryUtil.getLottory()
 
-      expect(lottory?.firstPrize).toBe('865737')
+      expect(lottory?.firstPrize).toBe('999999')
     })
 
     it('Should return a lottory which match the specify date', async () => {

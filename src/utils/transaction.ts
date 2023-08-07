@@ -3,7 +3,9 @@ import dayjs from 'dayjs'
 import { read, write } from './file'
 
 export const getTransactions = async () => {
-  const transactions = await read('transaction.json')
+  const transactions: { [key: string]: ITransaction[] } = await read(
+    'transaction.json',
+  )
 
   return transactions
 }
